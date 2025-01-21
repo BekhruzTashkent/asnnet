@@ -19,6 +19,7 @@
       <Folder Include="Base\" />
       <Folder Include="Features\" />
       <Folder Include="Security\" />
+        <Folder Include="Migrations\" />
     </ItemGroup>
 
 </Project>
