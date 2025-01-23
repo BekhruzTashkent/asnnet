@@ -13,6 +13,7 @@
         "packagesPath": "/Users/bexruz/.nuget/packages/",
         "outputPath": "/Users/bexruz/Desktop/6modul/all modul/uztelecom/uztelecom dotnet/myFirstApp/myFirstApp/obj/",
         "projectStyle": "PackageReference",
+        "UsingMicrosoftNETSdk": false,
         "configFilePaths": [
           "/Users/bexruz/.nuget/NuGet/NuGet.Config"
         ],
@@ -37,13 +38,20 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "all"
-        },
-        "SdkAnalysisLevel": "9.0.100"
+        }
       },
       "frameworks": {
         "net9.0": {
           "targetAlias": "net9.0",
           "dependencies": {
+            "BCrypt.Net-Core": {
+              "target": "Package",
+              "version": "[1.6.0, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[9.0.1, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[9.0.1, )"

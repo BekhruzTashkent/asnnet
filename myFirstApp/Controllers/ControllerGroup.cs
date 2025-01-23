@@ -3,10 +3,10 @@ using myFirstApp.Data;
 using myFirstApp.Models;
 
 namespace myFirstApp.Controllers;
+
+
 [Route("api/v1/groups/")]
 [ApiController]
-
-
 public class ControllerGroup : Controller
 {
     
@@ -32,11 +32,34 @@ public class ControllerGroup : Controller
         {
             return BadRequest("Group data is required and cannot be null.");
         }
-
-        // Proceed with your database operations
+        
         _context.Groups.Add(group);
         _context.SaveChanges();
         return CreatedAtAction(nameof(Index), new { id = group.Id }, group);
+    }
+    
+    
+    [HttpPut("update/{id}")]
+    public IActionResult UpdateGroup(int id, [FromBody] Group group)
+    {
+        if (group == null)
+        {
+            return BadRequest("Group data is required.");
+        }
+
+        var existingGroup = _context.Groups.Find(id);
+        if (existingGroup == null)
+        {
+            return NotFound($"Group with ID {id} not found.");
+        }
+
+        existingGroup.GroupName = group.GroupName;
+        existingGroup.Description = group.Description;
+
+        _context.Groups.Update(existingGroup);
+        _context.SaveChanges();
+
+        return Ok(existingGroup); 
     }
     
 }
