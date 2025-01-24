@@ -26,7 +26,7 @@ public class ControllerAuth : ControllerBase //for exceptions
     }
 
 
-    [HttpPost("Register")]
+    [HttpPost("register")]
     [AllowAnonymous]
     public async Task<IActionResult> Register([FromBody] Register register)
     {
@@ -43,7 +43,7 @@ public class ControllerAuth : ControllerBase //for exceptions
         {
             return Conflict(" user already exists ");
         }
-
+        
         var hashedPassword = 
             BCrypt.Net.BCrypt.HashPassword(register.Password);
         
@@ -59,11 +59,17 @@ public class ControllerAuth : ControllerBase //for exceptions
         _context.Registers.Add(newUser);
         await _context.SaveChangesAsync();
 
-        return Ok("successful registration");  
+        var token = 
+            _tokenService.GenerateToken(
+                register.Username, register.Role);
+
+        return Ok(new {
+            Message = "Successful registration",
+            Token = token });
     }
     
     
-    [HttpPost("Login")]
+    [HttpPost("login")]
     [AllowAnonymous]
         
     public async Task<IActionResult> Login([FromBody] Login login)
@@ -110,6 +116,4 @@ public class ControllerAuth : ControllerBase //for exceptions
                 
         });
     }
-    
-    
 }
